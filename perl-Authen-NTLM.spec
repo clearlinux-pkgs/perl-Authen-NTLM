@@ -4,13 +4,14 @@
 #
 Name     : perl-Authen-NTLM
 Version  : 1.09
-Release  : 1
+Release  : 2
 URL      : https://cpan.metacpan.org/authors/id/N/NB/NBEBOUT/NTLM-1.09.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/N/NB/NBEBOUT/NTLM-1.09.tar.gz
 Summary  : ~
 Group    : Development/Tools
 License  : Artistic-1.0-Perl GPL-1.0
 Requires: perl-Authen-NTLM-license = %{version}-%{release}
+Requires: perl-Authen-NTLM-perl = %{version}-%{release}
 Requires: perl(Digest::HMAC_MD5)
 BuildRequires : buildreq-cpan
 BuildRequires : perl(Digest::HMAC_MD5)
@@ -39,8 +40,18 @@ Group: Default
 license components for the perl-Authen-NTLM package.
 
 
+%package perl
+Summary: perl components for the perl-Authen-NTLM package.
+Group: Default
+Requires: perl-Authen-NTLM = %{version}-%{release}
+
+%description perl
+perl components for the perl-Authen-NTLM package.
+
+
 %prep
 %setup -q -n NTLM-1.09
+cd %{_builddir}/NTLM-1.09
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -65,8 +76,8 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Authen-NTLM
-cp COPYING-Artistic %{buildroot}/usr/share/package-licenses/perl-Authen-NTLM/COPYING-Artistic
-cp COPYING-GPL %{buildroot}/usr/share/package-licenses/perl-Authen-NTLM/COPYING-GPL
+cp %{_builddir}/NTLM-1.09/COPYING-Artistic %{buildroot}/usr/share/package-licenses/perl-Authen-NTLM/a832d4d06f91db191b4f336e98016f0bc5bf9879
+cp %{_builddir}/NTLM-1.09/COPYING-GPL %{buildroot}/usr/share/package-licenses/perl-Authen-NTLM/7aba5bad3f07e795b696a206f5655dc5dcfd1b8c
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -79,9 +90,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/Authen/NTLM.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Authen/NTLM/DES.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Authen/NTLM/MD4.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -89,5 +97,11 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Authen-NTLM/COPYING-Artistic
-/usr/share/package-licenses/perl-Authen-NTLM/COPYING-GPL
+/usr/share/package-licenses/perl-Authen-NTLM/7aba5bad3f07e795b696a206f5655dc5dcfd1b8c
+/usr/share/package-licenses/perl-Authen-NTLM/a832d4d06f91db191b4f336e98016f0bc5bf9879
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/Authen/NTLM.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Authen/NTLM/DES.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Authen/NTLM/MD4.pm
