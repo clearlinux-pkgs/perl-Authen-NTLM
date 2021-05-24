@@ -4,7 +4,7 @@
 #
 Name     : perl-Authen-NTLM
 Version  : 1.09
-Release  : 9
+Release  : 10
 URL      : https://cpan.metacpan.org/authors/id/N/NB/NBEBOUT/NTLM-1.09.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/N/NB/NBEBOUT/NTLM-1.09.tar.gz
 Summary  : ~
